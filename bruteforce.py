@@ -42,7 +42,8 @@ def test_buy_actions():
                                 t_result.append(share_2[0] + ' X ' + str(nb_action2))  
                     t_result.append(cash_rest) 
                     t_result.append(round(benefit + benefit_2, 2))
-                    total_result.append(t_result)
+                    if t_result not in total_result:
+                        total_result.append(t_result)
             if action_list_2[j][3] > action_list_2[j+1][3] :
                 action_list_2[j], action_list_2[j+1] = action_list_2[j+1], action_list_2[j]
 
@@ -67,4 +68,3 @@ if __name__ == "__main__":
         print("l'action : ", total_result[-1][i], "fois")
     print("il reste: ", total_result[-1][-2], "€")
     print("le benefice sera de :", total_result[-1][-1],"€ au bout de 2 ans")
-   
