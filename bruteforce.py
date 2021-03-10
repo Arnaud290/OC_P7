@@ -12,15 +12,16 @@ def brutforce_buy_actions(action_list_csv):
     with open(action_list_csv, "r") as csv_file:
         reader = csv.DictReader(csv_file, delimiter=',')
         for row in reader:
-            max_nb_buy = int(CASH // float(row['price']))
-            benefit_result = (float(row['price']) * float(row['profit'])) / 100
-            max_benefit_result = round((benefit_result * max_nb_buy), 2)
-            actions_list.append([row['name'],
-                                float(row['price']),
-                                float(row['profit']),
-                                benefit_result,
-                                max_benefit_result
-                                ])
+            if float(row['price']) > 0:
+                max_nb_buy = int(CASH // float(row['price']))
+                benefit_result = (float(row['price']) * float(row['profit'])) / 100
+                max_benefit_result = round((benefit_result * max_nb_buy), 2)
+                actions_list.append([row['name'],
+                                    float(row['price']),
+                                    float(row['profit']),
+                                    benefit_result,
+                                    max_benefit_result
+                                    ])
     k = len(actions_list) - 1
     action_list_2 = actions_list
     action_list_2.sort(key=lambda list: list[4], reverse=True)
@@ -63,7 +64,7 @@ def brutforce_buy_actions(action_list_csv):
 
 if __name__ == "__main__":
     os.system('clear')
-    result = brutforce_buy_actions("20_actions.csv")
+    result = brutforce_buy_actions("dataset2.csv")
     print("Temps total d'execution: ", result[1])
     print("\n\n")
     print("Nombre de résultats: " + str(len(result[0])))
