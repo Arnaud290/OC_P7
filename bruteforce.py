@@ -1,22 +1,20 @@
 """Program brute force"""
 import csv
+from time import time, strftime, gmtime
 
-actions_list = []
-total_result = []
 
-def get_actions(csv_file):
-    with open(csv_file, "r") as csv_file:
+def brutforce_buy_actions(action_list_csv):
+    time_start = time()
+    actions_list = []
+    total_result = []
+    with open(action_list_csv, "r") as csv_file:
         reader = csv.DictReader(csv_file, delimiter=',')
-        i = 1
         for row in reader:
-            benefit_result = (int(row['cost_per_share']) * int(row['benefit']))/100
-            actions_list.append(["share_" + str(i), int(row['cost_per_share']), int(row['benefit']), benefit_result])
-            i += 1
-    actions_list.sort(key=lambda list: list[3], reverse=True)
-
-def test_buy_actions():
+            benefit_result = (float(row['price']) * float(row['profit']))/100
+            actions_list.append([row['name'], float(row['price']), float(row['profit']), benefit_result])
     k = len(actions_list) - 1
     action_list_2 = actions_list
+    action_list_2.sort(key=lambda list: list[3], reverse=True)
     for i in range(k):
         for j in range(0, k - i - 1):
             for share in actions_list:
@@ -40,31 +38,26 @@ def test_buy_actions():
                                 benefit_2 += share_2[3]
                             if nb_action2 > 0:
                                 t_result.append(share_2[0] + ' X ' + str(nb_action2))  
-                    t_result.append(cash_rest) 
+                    t_result.append('REST:' + str(cash_rest) + ' €') 
                     t_result.append(round(benefit + benefit_2, 2))
                     if t_result not in total_result:
                         total_result.append(t_result)
             if action_list_2[j][3] > action_list_2[j+1][3] :
                 action_list_2[j], action_list_2[j+1] = action_list_2[j+1], action_list_2[j]
+    total_result.sort(key=lambda x: x[-1], reverse=True)
+    time_total = time() - time_start
+    time_total = strftime('%H:%M:%S', gmtime(time_total))
+    return([total_result, time_total])
 
 if __name__ == "__main__":
-    get_actions("20_actions.csv")
-    print("\n\nListe des actions : \n")
-    for action in actions_list:
-        print(action)
-    print("\n \n")
+  
+    result = brutforce_buy_actions("dataset2.csv")
 
-    test_buy_actions()
-    print('Nombre total de resultats: ',len(total_result))
-    total_result.sort(key=lambda x: x[-1], reverse=True)
-
-    print('\n\nLa meilleur combinaison est :\n')
-    for i in range(len(total_result[0]) - 2):
-        print("l'action : ", total_result[0][i], "fois")
-    print("il reste: ", total_result[0][-2], "€")
-    print("le benefice sera de :", total_result[0][-1]," € au bout de 2 ans\n\n")
-    print('La moins bonne combinaison est :\n')
-    for i in range(len(total_result[-1]) - 2):
-        print("l'action : ", total_result[-1][i], "fois")
-    print("il reste: ", total_result[-1][-2], "€")
-    print("le benefice sera de :", total_result[-1][-1],"€ au bout de 2 ans")
+    print("Temps total d'execution: ", result[1])
+    print("\n\n")
+    print("Nombre de résultats: " + str(len(result[0])))
+    print("\n\n")
+    print("Meilleur résultat: ", result[0][0])
+    print("\n\n")
+    print("Pire résultat: ", result[0][-1])
+   
