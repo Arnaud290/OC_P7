@@ -72,8 +72,8 @@ def time_iterations_result_to_csv(actions_list, fonction_buy_action, file_name):
                 writer.writerow([len(actions_list_test), result[2], total_time])
             else:
                 result = optimized_buy_actions(actions_list_test)
-                minutes = result[-1].split(':')[0]
-                secondes = result[-1].split(':')[1]
+                minutes = str(result[-1]).split(':')[0]
+                secondes = str(result[-1]).split(':')[1]
                 total_time = int(minutes) * 60 + int(secondes)
                 writer.writerow([len(actions_list_test), result[-2], total_time])
 
