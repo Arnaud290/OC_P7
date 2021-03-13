@@ -12,7 +12,7 @@ def bruteforce_buy_actions(actions_list):
     action_l_2 = actions_list
     action_l_2.sort(key=lambda list: list[4], reverse=True)
     for i in range(k):
-        for j in range(0, k - i - 1):
+        for j in range(k - i - 1):
             for share in actions_list:
                 cash = CASH
                 benefit = 0
