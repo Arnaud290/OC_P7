@@ -1,9 +1,9 @@
 """Program brute force"""
-from tqdm import tqdm
 from time import time, strftime, gmtime
 
 
-def brutforce_buy_actions(actions_list):
+def bruteforce_buy_actions(actions_list):
+    """ Big O notation polynomial time O(n^4)"""
     CASH = 500
     iteration = 0
     time_start = time()
@@ -11,7 +11,7 @@ def brutforce_buy_actions(actions_list):
     k = len(actions_list) - 1
     action_l_2 = actions_list
     action_l_2.sort(key=lambda list: list[4], reverse=True)
-    for i in tqdm(range(k)):
+    for i in range(k):
         for j in range(0, k - i - 1):
             for share in actions_list:
                 cash = CASH

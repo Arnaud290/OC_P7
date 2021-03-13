@@ -1,5 +1,6 @@
 import os
-from bruteforce import brutforce_buy_actions
+from tqdm import tqdm
+from bruteforce import bruteforce_buy_actions
 from optimized import optimized_buy_actions
 import csv
 
@@ -17,8 +18,9 @@ TEXT = "l'action: {}, acheté {} fois,\
 pour un bénéfice de {} € au bout de 2 ans\n"
 
 
-def result_brutforce(actions_list):
-    result = brutforce_buy_actions(actions_list)
+def result_bruteforce(actions_list):
+    """Display bruteforce results"""
+    result = bruteforce_buy_actions(actions_list)
     print("Resultat du brut force: \n\n")
     print("Temps total d'execution: ", result[1])
     print("\n\n")
@@ -38,6 +40,7 @@ bénéfices est de {} €".format(result[0][0][-1]))
 
 
 def result_optimized(actions_list):
+    """Display optimized results"""
     result = optimized_buy_actions(actions_list)
     print("Résultat avec la méthode optimisé: \n\n")
     print("Temps total d'execution: ", result[-1])
@@ -55,6 +58,7 @@ def result_optimized(actions_list):
 
 
 def action_list_csv_to_action_list(action_list_csv):
+    """Add the information of a csv file to a list"""
     CASH = 500
     actions_list = []
     with open(action_list_csv, "r") as csv_file:
@@ -78,14 +82,16 @@ def action_list_csv_to_action_list(action_list_csv):
 def time_iterations_result_to_csv(actions_list,
                                   fonction_buy_action,
                                   file_name):
+    """Adds the results (number of actions, iterations, time)
+    of the two algorithms in a csv file"""
     with open(file_name, "w", newline='') as csv_file:
         writer = csv.writer(csv_file, delimiter=',')
         writer.writerow(['nb_actions', 'nb_iterations', 'time (secondes)'])
         actions_list_test = []
-        for i in range(len(actions_list)):
+        for i in tqdm(range(len(actions_list))):
             actions_list_test.append(actions_list[i])
-            if fonction_buy_action == brutforce_buy_actions:
-                result = brutforce_buy_actions(actions_list_test)
+            if fonction_buy_action == bruteforce_buy_actions:
+                result = bruteforce_buy_actions(actions_list_test)
                 minutes = result[1].split(':')[0]
                 secondes = result[1].split(':')[1]
                 total_time = int(minutes) * 60 + int(secondes)
@@ -103,6 +109,7 @@ def time_iterations_result_to_csv(actions_list,
 
 
 def menu():
+    """Engine menu"""
     select = ''
     while True:
         os.system("clear")
@@ -113,7 +120,7 @@ def menu():
         if select == '1':
             os.system("clear")
             action_list = action_list_csv_to_action_list("20_actions.csv")
-            result_brutforce(action_list)
+            result_bruteforce(action_list)
             input("press any key...")
         if select == '2':
             os.system("clear")
@@ -128,8 +135,8 @@ def menu():
         if select == '4':
             action_list = action_list_csv_to_action_list("test_40_actions.csv")
             time_iterations_result_to_csv(action_list,
-                                          brutforce_buy_actions,
-                                          "brutforce_buy_actions.csv")
+                                          bruteforce_buy_actions,
+                                          "bruteforce_buy_actions.csv")
         if select == '5':
             action_list = action_list_csv_to_action_list("test_40_actions.csv")
             time_iterations_result_to_csv(action_list,

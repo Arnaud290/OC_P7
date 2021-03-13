@@ -3,6 +3,7 @@ from time import time, strftime, gmtime
 
 
 def optimized_buy_actions(actions_list):
+    """big O notation linear time O(n)"""
     time_start = time()
     result_list_best = []
     CASH = 500
