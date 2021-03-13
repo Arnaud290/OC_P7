@@ -35,7 +35,7 @@ def result_bruteforce(actions_list):
     print("\n\n")
     print("il reste {} €".format(result[0][0][-2]))
     print("\n\n")
-    print("Le montant total des\
+    print("Le montant total des \
 bénéfices est de {} €".format(result[0][0][-1]))
 
 
@@ -143,6 +143,7 @@ def menu():
                                           optimized_buy_actions,
                                           "optimized_buy_actions.csv")
         if select == '6':
+            os.system("clear")
             break
 
 
