@@ -75,7 +75,7 @@ def action_list_csv_to_action_list(action_list_csv):
                                     float(row['price']),
                                     float(row['profit']),
                                     benefit_result,
-                                    max_benefit_result])                           
+                                    max_benefit_result])
     return actions_list
 
 
