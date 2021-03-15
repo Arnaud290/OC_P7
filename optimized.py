@@ -17,7 +17,7 @@ def optimized_buy_actions(actions_list):
         while cash >= share[1]:
             cash -= share[1]
             nb_buy_share += 1
-            benefit += share[3]
+            benefit += round(share[3], 2)
             iteration += 1
         if nb_buy_share > 0:
             result_list_best.append((share[0],

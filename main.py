@@ -8,25 +8,25 @@ TEXT_MENU = "Bienvenue sur le test d'achat d'actions\n\n\
 1 : Méthode en brute force pour 20 actions\n\
 2 : Méthode optimisé pour 20 actions\n\
 3 : Méthode optimisé pour la liste compléte d'action\n\
-4 : Edition fichier csv temps d'exectution en fonction\
+4 : Edition fichier csv temps d'exécution en fonction\
  du nombre d'actions sur 40 actions en brut force\n\
-5 : Edition fichier csv temps d'exectution en fonction\
+5 : Edition fichier csv temps d'exécution en fonction\
 du nombre d'actions sur 40 actions en optimisé\n\
 6 : Quitter\n"
 
-TEXT = "l'action: {}, acheté {} fois,\
+TEXT = "l'action: {}, acheté {} fois, \
 pour un bénéfice de {} € au bout de 2 ans\n"
 
 
 def result_bruteforce(actions_list):
     """Display bruteforce results"""
     result = bruteforce_buy_actions(actions_list)
-    print("Resultat du brut force: \n\n")
+    print("Résultat du brut force: \n\n")
     print("Temps total d'execution: ", result[1])
     print("\n\n")
     print("Nombre de résultats: " + str(len(result[0])))
     print("\n\n")
-    print("Nombre d'itérations': " + str(result[2]))
+    print("Nombre d'itérations: " + str(result[2]))
     print("\n\n")
     print("Meilleur résultat: \n\n")
     for i in range(len(result[0][0]) - 2):
@@ -43,9 +43,9 @@ def result_optimized(actions_list):
     """Display optimized results"""
     result = optimized_buy_actions(actions_list)
     print("Résultat avec la méthode optimisé: \n\n")
-    print("Temps total d'execution: ", result[-1])
+    print("Temps total d'exécution: ", result[-1])
     print("\n\n")
-    print("Nombre d'itérations': " + str(result[-2]))
+    print("Nombre d'itérations: " + str(result[-2]))
     print("\n\n")
     print("Meilleur résultat: \n\n")
     for i in range(len(result) - 4):
@@ -75,7 +75,7 @@ def action_list_csv_to_action_list(action_list_csv):
                                     float(row['price']),
                                     float(row['profit']),
                                     benefit_result,
-                                    max_benefit_result])
+                                    max_benefit_result])                           
     return actions_list
 
 

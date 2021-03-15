@@ -20,10 +20,10 @@ def bruteforce_buy_actions(actions_list):
                 while share[1] <= cash:
                     cash -= share[1]
                     nb_actions += 1
-                    benefit += share[3]
+                    benefit += round(share[3], 2)
                     result_1 = (share[0],
                                 nb_actions,
-                                round(benefit, 2))
+                                round((share[3] * nb_actions), 2))
                     cash_rest = cash
                     benefit_2 = 0
                     t_result = [result_1]
@@ -33,12 +33,12 @@ def bruteforce_buy_actions(actions_list):
                             while share_2[1] <= cash_rest:
                                 cash_rest -= share_2[1]
                                 nb_action2 += 1
-                                benefit_2 += share_2[3]
+                                benefit_2 += round(share_2[3], 2)
                                 iteration += 1
                             if nb_action2 > 0:
                                 t_result.append((share_2[0],
                                                  nb_action2,
-                                                 round(benefit_2, 2)))
+                                                 round((share_2[3] * nb_action2), 2)))
                     t_result.append(cash_rest)
                     t_result.append(round(benefit + benefit_2, 2))
                     if t_result not in total_result:
